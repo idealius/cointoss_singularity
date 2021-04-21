@@ -126,7 +126,7 @@ print("Distribution calculated...")
 # Probability of success for each experiment
 p = 0.5
 
-def remove_dupes(t): #Elegantly replace duplicates in a list of integers with near sized integers
+def remove_dupes(t): #For ascending lists, elegantly replace duplicates in a list of integers with near sized integers
     c = len(t)
     for i in range(1, c):
         if i >= 1:
