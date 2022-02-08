@@ -1,5 +1,6 @@
 # Import libraries
 import sys
+from unittest.util import strclass
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -12,6 +13,7 @@ import math
 import Tables
 import os
 import time
+import secrets
 # import curses
 
 print('Calculating High Numbers..')
@@ -36,7 +38,7 @@ calc_mode = 'default'
 
 context_value = 28
 
-simulated = False
+simulated = True
 # simulated = not simulated #for commenting convenience
 
 flips = None #number of flips each person flips, set to None here to accept input
@@ -73,7 +75,10 @@ if ('_pydecimal' not in sys.modules): #Simply, if we didn't load the pydecimal i
     from decimal import Decimal as d
     from decimal import *
 
-maxzero = d(2 ** flips) #flips before achieving 0% (also, the probability of any given toss results)
+# Probability of success for each experiment
+p = 0.5
+
+maxzero = d(d(1 / p) ** d(flips)) #flips before achieving 0% (also, the probability of any given toss results)
 ##maxzero = sevenbil
 
 
@@ -112,10 +117,10 @@ trials[-1] = int(high)
 trials[0] = 1
 
 #Original Dataset
-##trials = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 25, 30, 35, 50, 65, 75, 90, 100, 150, 200, 300, 400, 500, 750, 800, 900, 1000, 1200, 1500, 2000, 5000, 10000, 50000, 100000, 500000, 1000000]
-##dist = len(trials) + 1
-##
-##trials[0] = 1
+# trials = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 25, 30, 35, 50, 65, 75, 90, 100, 150, 200, 300, 400, 500, 750, 800, 900, 1000, 1200, 1500, 2000, 5000, 10000, 50000, 100000, 500000, 1000000]
+# dist = len(trials) + 1
+
+trials[0] = 1
 
 #Graphing Probability
 ##trials = [1]
@@ -123,8 +128,7 @@ trials[0] = 1
 
 print("Distribution calculated...")
 
-# Probability of success for each experiment
-p = 0.5
+
 
 def remove_dupes(t): #For ascending lists, elegantly replace duplicates in a list of integers with near sized integers
     c = len(t)
@@ -282,7 +286,7 @@ def print_table(): #Print a table of lists with labels
         Column('Unluckiest ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
         Column('Simulated', speeds2, align=Column.LEFT)))
       
-    print (scinotate(d(maxzero), 10) + " trials until 0%")
+    print (str(maxzero) + " trials until 0%")
     return
 
 def percent(one, two): #return a percentage of two numbers with the sign
@@ -420,8 +424,19 @@ def sim_binom(numtrials, numtosses, prob, suppress_table):
     for person in range(numtrials):
         amount = 0
         for flip in range(numtosses):
-                flip = rand.random()
-                if (flip >= prob): amount = amount + 1
+                res = -1
+                #res = rand.random()
+                #res = secrets.randbelow(2)
+  
+                # while res < 0 or res > 1:
+                #     res = secrets.randbelow(4)-1
+
+                # while res < 0:
+                #     res = secrets.randbelow(3)-1
+
+                res = secrets.randbelow(2)
+                   
+                if (res >= prob): amount = amount + 1
         if (amount < lowest):
             lowest = amount
             if (lowest == 0): return 0
