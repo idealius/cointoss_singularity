@@ -38,8 +38,7 @@ calc_mode = 'default'
 
 context_value = 28
 
-simulated = True
-# simulated = not simulated #for commenting convenience
+
 
 flips = None #number of flips each person flips, set to None here to accept input
 dist = 32 #number distribution of for array of "people" running trials
@@ -101,32 +100,59 @@ d_e = d(math.e)
 
 thresh = 0 #d(d(10 ** 4) * d.sqrt(d(2*d_pi))) / d(flips * d.sqrt(d(flips)))
 
-##Even Distribution up to flips / high
-##high = flips #10000
-##trials =[int(i * high / dist) for i in range(1, dist+1)]
-##dist = len(trials) + 1
+print("\nTrial Distributions:\n[0/default]Logarithmic\n[1] Even\n[2] Low\n[3] User")
 
-##Even Distribution up to dist
-##trials =[i for i in range(1, dist+1)]
+trials_input = input("\nSelect: ")
+if len(trials_input) > 0: trials_input = int(trials_input)
+else: trials_input = 0
 
-#Logarithmic distribution
 high = maxzero
 if high < dist: dist = int(maxzero)
-trials = [int(d(i - d((i ** 2)/dist) + 10 ** (d(i ** 2/dist).log10() * d(high).log10()/d(dist).log10()))) for i in range(1, dist+1)]
-trials[-1] = int(high)
+
+if (trials_input == 0 or trials_input == None):
+    #Logarithmic distribution
+
+    trials = [int(d(i - d((i ** 2)/dist) + 10 ** (d(i ** 2/dist).log10() * d(high).log10()/d(dist).log10()))) for i in range(1, dist+1)]
+    trials[-1] = int(high)
+    trials[0] = 1
+elif (trials_input == 1):
+    # Even Distribution up to dist
+    # trials =[i for i in range(1, dist+1)]   
+
+    ##Even Distribution up to flips / high
+    high = flips #10000
+    trials =[int(i * high / dist) for i in range(1, dist+1)]
+    dist = len(trials) + 1
+elif (trials_input == 2):
+    #Original Dataset
+    trials = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 25, 30, 35, 50, 65, 75, 90, 100, 150, 200, 300, 400, 500, 750, 800, 900, 1000, 1200, 1500, 2000, 5000, 10000, 50000, 100000, 500000, 1000000]
+    dist = len(trials) + 1
+elif (trials_input == 3):
+    trials = [0, int(input("\nSelect: "))]
+
+
+
 trials[0] = 1
 
-#Original Dataset
-# trials = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 25, 30, 35, 50, 65, 75, 90, 100, 150, 200, 300, 400, 500, 750, 800, 900, 1000, 1200, 1500, 2000, 5000, 10000, 50000, 100000, 500000, 1000000]
-# dist = len(trials) + 1
 
-trials[0] = 1
+
+
+
+
 
 #Graphing Probability
 ##trials = [1]
 ##dist = len(trials) + 1
 
-print("Distribution calculated...")
+print("\nDistribution calculated...")
+
+
+sim = input("\nSimulated? [y/N]")
+if sim.upper() == "Y":
+    simulated = True
+else: 
+    simulated = False #for commenting convenience
+
 
 
 
