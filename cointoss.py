@@ -650,22 +650,30 @@ def probability_chart():
 
 
 if (__name__ == "__main__"): #Again, if we import code don't calculate tables
-
-    num = 0
-    for row in trials:
-        flips_result = calc_binom(row, flips, p)
-        flips_array[num] = flips_result
-        print_table()
-
-
-        if simulated:
-            flips_result_sim = sim_binom(row, flips, p, False)
-            cs_flips_result[num] = str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4)) #This is relevant after closing the probability chart
-            #flips_array2[num] = str(percent(flips_result_sim, flips))+', '+ str(flips_result_sim) + ', ' + str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4))
-            flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
+    rerun = True
+    while (rerun):
+        num = 0
+        for row in trials:
+            flips_result = calc_binom(row, flips, p)
+            flips_array[num] = flips_result
             print_table()
 
-        num += 1
+
+            if simulated:
+                flips_result_sim = sim_binom(row, flips, p, False)
+                cs_flips_result[num] = str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4)) #This is relevant after closing the probability chart
+                #flips_array2[num] = str(percent(flips_result_sim, flips))+', '+ str(flips_result_sim) + ', ' + str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4))
+                flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
+                print_table()
+
+            num += 1
+        rerun = False
+        if simulated:
+            rerun = input("\nRe-run? [Y/n]")
+            if rerun.upper() == "N":
+                rerun = False
+            else: 
+                rerun = True #for commenting convenienceupper(input("\nRe-run?[y/N]"))
 
 
 
