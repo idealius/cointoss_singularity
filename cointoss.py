@@ -663,7 +663,10 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
                 flips_result_sim = sim_binom(row, flips, p, False)
                 cs_flips_result[num] = str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4)) #This is relevant after closing the probability chart
                 #flips_array2[num] = str(percent(flips_result_sim, flips))+', '+ str(flips_result_sim) + ', ' + str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4))
-                flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
+                # flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
+                flip_ratio = round(flips_result_sim / flips * 100,1)
+                flip_ratio = 100 - flip_ratio if flip_ratio > 50 else flip_ratio 
+                flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+ str(flip_ratio) + '%)'
                 print_table()
 
             num += 1
