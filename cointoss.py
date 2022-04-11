@@ -100,7 +100,7 @@ d_e = d(math.e)
 
 thresh = 0 #d(d(10 ** 4) * d.sqrt(d(2*d_pi))) / d(flips * d.sqrt(d(flips)))
 
-print("\nTrial Distributions:\n[0/default]Logarithmic\n[1] Even\n[2] Low\n[3] User")
+print("\nSample Trial Distributions:\n[0/default] Logarithmic\n[1] Even\n[2] Low\n[3] User")
 
 trials_input = input("\nSelect: ")
 if len(trials_input) > 0: trials_input = int(trials_input)
@@ -309,7 +309,7 @@ def print_table(): #Print a table of lists with labels
 
     print (Tables.Table(
         Column('People/Trials', nums),
-        Column('Unluckiest ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
+        Column('TA/HE Flip Results ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
         Column('Simulated', speeds2, align=Column.LEFT)))
       
     print (str(maxzero) + " trials until 0%")
@@ -664,7 +664,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
                 cs_flips_result[num] = str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4)) #This is relevant after closing the probability chart
                 #flips_array2[num] = str(percent(flips_result_sim, flips))+', '+ str(flips_result_sim) + ', ' + str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4))
                 # flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
-                flip_ratio = round(flips_result_sim / flips * 100,1)
+                flip_ratio = round(flips_result_sim / flips * 100,2)
                 flip_ratio = 100 - flip_ratio if flip_ratio > 50 else flip_ratio 
                 flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+ str(flip_ratio) + '%)'
                 print_table()
