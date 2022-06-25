@@ -18,7 +18,7 @@ I was playing a very popular online game a year before I started this project. A
 
 Disclaimer: I taught myself to code in High School, so if you see some faux pas, a thousand apologies.
 
-If you'd like to understand what algorithm underlies the code, and why I chose it, please message me and we can chat.
+If you'd like to understand what algorithm underlies the code, and why I chose it, please message me and we can chat, but it's in fact very basic.
 
 ## The Point?
 
