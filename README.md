@@ -1,4 +1,4 @@
-# Hello
+# Hello World
 
 This program was conceived, researched, and somewhat haphazardly programmed just before the pandemic in early 2020. Aside from adding command line options, I have not continued much development on it because other repositories and the usual, but I wish to when time is available.
 
@@ -8,7 +8,7 @@ A college level mathematics teacher will tell you to calculate the number of tri
 
 However, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials).
 
-# But, how do we calculate that?
+## But, how do we calculate that?
 
 A statistican would have some great ideas. I am not one, I am a math hobbyist that is just interested in this particular corner of academics, and this is my result. 
 
