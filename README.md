@@ -10,7 +10,7 @@ The most concise explanation I can give is:
 
 **So, if we flip 5 coins (trials), it will take 2^5 i.e. 32 people, OR 32 total cointosses by one to achieve a streak of all 5 heads or all 5 tails.**
 
-However, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials).
+*Yet, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials).*
 
 ## But, how do we calculate that?
 
