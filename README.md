@@ -1,6 +1,6 @@
 # Hello World
 
-This program was conceived, researched, and somewhat haphazardly programmed just before the pandemic in early 2020. Aside from adding command line options, I have not continued much development on it because other repositories and the usual, but I wish to when time is available.
+This program was conceived, researched, and somewhat haphazardly programmed just before the pandemic in early 2020. Aside from adding command line options, I have not continued development on it because other repositories and the usual, but I wish to when time is available.
 
 # What is it?
 
