@@ -4,7 +4,9 @@ This program was conceived, researched, and somewhat haphazardly programmed just
 
 # What is it?
 
-A college level mathematics teacher will tell you to calculate the number of trials for a cointoss before we get all heads or all tails, we simply do 2^(trials). This is the reduction of the binomial distribution formula. 
+A college level mathematics teacher will tell you to calculate the number of trials for a cointoss before we get all heads or all tails, we simply do 2^(trials). This is the reduction of the binomial distribution formula.
+
+**So, if we run 5 trials, it will take 2^5, or 32 people, or repeated attempts to achieve all 5 heads or tails.**
 
 However, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials).
 
