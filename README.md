@@ -30,4 +30,4 @@ The first thing on my mind is getting to run with pypy for faster runtimes and s
 
 ## The Point?
 
-There is a point to this that I think people who had the courage to face it might see, but I think that's up for them to discover for themselves. For me, I know after I coded this, and thought about it, competitive video games in the online space seemed a lot less fun. :) I don't have any desire to play video games anymore (except little puzzley whatevers to act as a filler, or as semi-research endeavors), however I'm still open to working on them because I've done that off and on since I was 13, so at this point I think I'd absolutely nail it, but that is neither here nor there unless there becomes here. \*
+I think it can raise existential questions, um it can show how pointless it is to be an online gamer. Different stuff like that.
