@@ -30,4 +30,4 @@ The first thing on my mind is getting to run with pypy for faster runtimes and s
 
 ## The Point?
 
-I think it can raise existential questions, um it can show how pointless it is to be an online gamer. Different stuff like that.
+When the population of a probability exceeds a certain amount the gaussian distribution isn't as accurate anymore because the long tails of a distribution suddenly allow extended runs of wins / losses. In the past this was fine because computers could not calculate those tails timely due to factorial equations being difficult to solve for, but now computers have advanced enough to accomodate complex factorial equations.
