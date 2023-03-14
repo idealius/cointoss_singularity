@@ -18,9 +18,7 @@ A statistican would have some great ideas. I am not one, I am a math hobbyist th
 
 # Inspiration
 
-I was playing a very popular online game a year before I started this project. And, at that time, despite the probabilities for win/loss of this particular game being .49/.51 (almost a cointoss) I noticed even after improving sometimes I would lose 20 games in a row. This was very strange to me and I wanted to understand how this could even be possible. I would call these "vortices" or "the vortex" because it felt as though the probability of this happening couldn't be chance, and yet the source of my losses was unknown, "So... multiple... *things* are causing me to lose unfairly??" (<- Hence, vortex) But, it turns out, chance can cause this! So, I looked up the number of concurrent players (at the time) and it was around 7-8 million people. Then, I attempted to learn college-level statistics to understand how these streaks can occur, and I began with quickly coded simulations in Python, that I would paste in Excel, but eventually I dropped Excel and stayed with advancing the Python program. 
-
-Disclaimer: I taught myself to code in High School back when dial-up was a thing, so if you see some faux pas, a thousand apologies.
+If you have a roomful of people performing a cointoss, what are the expected breakdowns of "streaks" to occur respective to not only the number of cointosses, but the number of rooms performing the trial?
 
 If you'd like to understand what algorithm underlies the code, and why I chose it, please message me and we can chat, but it's in fact very basic. The accuracy is not 100%, but it seems to be scalable so I think it's most likely on the correct track.
 
