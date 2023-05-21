@@ -45,6 +45,13 @@ dist = 32 #number distribution of for array of "people" running trials
 max_factorial = 203500 #C and possibly Python implementation of Decimal() tends to break around binomial calculations of this magnitude because of factorials
 
 
+def d_ceil(n): #Decimal version of math.ceil()
+    getcontext().rounding = ROUND_CEILING
+    p = n * 1
+    getcontext().rounding = ROUND_HALF_EVEN
+    return p
+
+
 if (__name__ == "__main__"): #Just so if the code is imported like a module it doesn't ask for input
     while flips == None:
         flips = int(input("\nEnter number of coin flips (50%): "))
@@ -77,7 +84,19 @@ if ('_pydecimal' not in sys.modules): #Simply, if we didn't load the pydecimal i
 # Probability of success for each experiment
 p = 0.5
 
-maxzero = d(d(1 / p) ** d(flips)) #flips before achieving 0% (also, the probability of any given toss results)
+p_str = input("\nProbability [p=.5]")
+if p_str == "":
+    p = .5
+elif p <= 0:
+    p = .1
+elif p > 1: 
+    p=.9
+p = d(p_str)
+print("p = " + str(p))
+
+
+maxzero = d_ceil(d(1 / p) ** d(flips)) #flips before achieving 0% (also, the probability of any given toss results)
+#maxzero = 1/d(d(1-p) ** d(flips))
 ##maxzero = sevenbil
 
 
@@ -96,6 +115,8 @@ d_e = d(math.e)
 ##        + (6.65*math.log(x**50))/(2*x)*(1-sign(100000-x))
 ##
 ##    return d(x)
+
+
 
 
 thresh = 0 #d(d(10 ** 4) * d.sqrt(d(2*d_pi))) / d(flips * d.sqrt(d(flips)))
@@ -211,6 +232,9 @@ def d_floor(n): #Decimal version of math.floor()
     getcontext().rounding = ROUND_HALF_EVEN
     return p
 
+
+
+
 def d_factorial(n: d):
     if (n == 0): return 1
     if (n == 2): return 2
@@ -288,6 +312,7 @@ def scinotate(numpass: d, prec: int): #manual scientific notation for very large
         a = t + 'e-' + str(len(str(10**(c-2))))
 
     return sign + a
+
 
 
 def print_table(): #Print a table of lists with labels
@@ -370,7 +395,7 @@ def useful_time(i, total, time_left): # Convert a time to a readable format
 def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > thresh for a given population, number of trials, and assumed binomial prob, update table, print it, 
     index = trials.index(numtrials)
     
-    mid = d(numtosses/d(2)) #half of the tosses is the highest probability in a binomial
+    mid = d(numtosses*prob) #the p of the tosses is the highest probability in a binomial
     mid_int = int(mid)
     if (mid_int < 0): mid_int = 1
  
@@ -385,19 +410,23 @@ def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > th
     a = d(numtosses * p)
   
     #This whole section is for skipping calculating trials which will most-likely be zero probability and also determining the threshold to test against
-    c = binomial_dist(1, numtosses, mid, prob)
+    identity_dist = binomial_dist(1, numtosses, mid, prob) # this is the dist result if we only ran one *set* i.e. 1xnumtosses
     if (numtosses==1):
         thresh = numtrials * p
         mad = 0
     else:
-        thresh = d(c)
+        
+        thresh = identity_dist
 ##        mad =d(d(d(d(c) / d(numtrials)) * d(.110171458167779)))
         mad = (numtosses * p * ( 1 - p)) 
 ##        thresh = d(d(c) / d(numtrials))
 ##        mad = d(0)
     #if (c <= thresh): return scinotate(d_round(c, 2), 4) + " P of 50%"
-    start = int(gaussian_dist(numtrials, numtosses, thresh, prob)) #start at the gaussian dist using the binomial as the threshold to save calculation time
-    if (start < 0): start = 0
+    start = 0
+    if (prob >= .33): #this should probably be reworked to include number of tosses, but maybe irrelevant
+        start = int(gaussian_dist(numtrials, numtosses, thresh, prob)) #start at the gaussian dist using the binomial as the threshold to save calculation time
+        start = 0 if start < 0 else start
+    
 
 
     low_stirling = None
@@ -409,17 +438,17 @@ def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > th
         #if (maxzero == numtrials): return "0"
    
         
-        if (calc_mode == 'both'):
+        if(calc_mode == 'default'): #default
+            low_value = binomial_dist(numtrials, numtosses, i, prob)
+        elif (calc_mode == 'both'):
             low_value = binomial_dist(numtrials, numtosses, i, prob)
             low_stirling = stirling_binom(numtrials, numtosses, i, prob)
-        elif(calc_mode == 'default'):
-            low_value = binomial_dist(numtrials, numtosses, i, prob)
         else:
             low_value = stirling_binom(numtrials, numtosses, i, prob)
 
         if (low_value >= thresh) and low_stirling == None:
            
-##            i_for_low_value = d(d_round(d(d(i/(numtosses))*d(100)+d(mad/2)),3))
+            #i_for_low_value = d(d_round(d(d(i/(numtosses))*d(100)+d(mad/2)),3))
             i_for_low_value = d_round(d(d(i/(numtosses))*100),3)
             low_value_str = scinotate(i_for_low_value,4) + '%' #lowest value achievable by percent
 
@@ -434,8 +463,9 @@ def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > th
             flips_array[index] = useful_time(i, mid_int, time_left)
             print_table()
             last_step += step
+    #end loop
 
-    return scinotate(d_round(c, 2), 4) + " P of 50%" #We didn't find it so just send the highest probability of the binomial
+    return scinotate(d_round(identity_dist, 2), 4) + " p of " + str(prob*100) + "%" #We didn't find it so just send the highest probability of the binomial
 
 
 def sim_binom(numtrials, numtosses, prob, suppress_table):
@@ -450,7 +480,7 @@ def sim_binom(numtrials, numtosses, prob, suppress_table):
     for person in range(numtrials):
         amount = 0
         for flip in range(numtosses):
-                res = -1
+                res = float(-1)
                 #res = rand.random()
                 #res = secrets.randbelow(2)
   
@@ -460,9 +490,9 @@ def sim_binom(numtrials, numtosses, prob, suppress_table):
                 # while res < 0:
                 #     res = secrets.randbelow(3)-1
 
-                res = secrets.randbelow(2)
+                res = secrets.randbelow(100) / 100
                    
-                if (res >= prob): amount = amount + 1
+                if (res <= prob): amount = amount + 1
         if (amount < lowest):
             lowest = amount
             if (lowest == 0): return 0
