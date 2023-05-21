@@ -72,7 +72,7 @@ if (__name__ == "__main__"): #Just so if the code is imported like a module it d
                 Context(Emax=context_value)
 
         elif (flips != None):
-            break;
+            break
     print ('\n')
 else:
     flips = 2
@@ -121,7 +121,7 @@ d_e = d(math.e)
 
 thresh = 0 #d(d(10 ** 4) * d.sqrt(d(2*d_pi))) / d(flips * d.sqrt(d(flips)))
 
-print("\nSample Trial Distributions:\n[0/default] Logarithmic\n[1] Even\n[2] Low\n[3] User")
+print("\nSample Trial Distributions:\n[0/default] Logarithmic\n[1] Even\n[2] Low\n[3] User\n[4] User (Log)")
 
 trials_input = input("\nSelect: ")
 if len(trials_input) > 0: trials_input = int(trials_input)
@@ -134,7 +134,7 @@ if (trials_input == 0 or trials_input == None):
     #Logarithmic distribution
 
     trials = [int(d(i - d((i ** 2)/dist) + 10 ** (d(i ** 2/dist).log10() * d(high).log10()/d(dist).log10()))) for i in range(1, dist+1)]
-    trials[-1] = int(high)
+    #trials[-1] = int(high)
     trials[0] = 1
 elif (trials_input == 1):
     # Even Distribution up to dist
@@ -150,7 +150,13 @@ elif (trials_input == 2):
     dist = len(trials) + 1
 elif (trials_input == 3):
     trials = [0, int(input("\nSelect: "))]
-
+else: 
+    trials_input2 = input("\nSelect: ")
+    high = int(trials_input2)
+    # print(str(high))
+    trials = [int(d(i - d((i ** 2)/dist) + 10 ** (d(i ** 2/dist).log10() * d(high).log10()/d(dist).log10()))) for i in range(1, dist+1)]
+    #trials[-1] = int(high)
+    trials[0] = 1
 
 
 trials[0] = 1
