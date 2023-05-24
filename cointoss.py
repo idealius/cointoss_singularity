@@ -101,7 +101,7 @@ print("p = " + str(p))
 
 
 #maxzero = d_ceil(d(1 / p) ** d(flips)) 
-maxzero = d_round(1/d(d(1-p) ** d(flips)), context_value) #flips before achieving 0% (also, the probability of any given toss results)
+maxzero = d_round(1/d(d(1-p) ** d(flips)), 1) #flips before achieving 0% (also, the probability of any given toss results)
 ##maxzero = sevenbil
 
 
@@ -334,7 +334,7 @@ def print_table(): #Print a table of lists with labels
     termcolumns, termrows = os.get_terminal_size()
     for i in range(0, len(nums)):
 
-        if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -40:
+        if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -60:
             nums[i] = scinotate(d(nums[i]), 2)
     
     desc = [ '', 'Population', 'Protection', 'Simulated']
@@ -345,7 +345,7 @@ def print_table(): #Print a table of lists with labels
         Column('TA/HE Flip Results ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
         Column('Simulated', speeds2, align=Column.LEFT)))
       
-    print (str(maxzero) + " trials until 0%")
+    print (str(maxzero) + " trials until 0% at p=" + str(p))
     return
 
 def percent(one, two): #return a percentage of two numbers with the sign
@@ -687,8 +687,15 @@ def probability_chart():
 
 
 
-if (len(str(maxzero)) < 10**30): maxzero = d(math.ceil(float(maxzero)))#last chance to clean up our target value to be nicer looking and appropriate size relative to screen width
-maxzero = scinotate(d(remove_pythnotation(maxzero)), 20) 
+try:
+    maxzero = d(math.ceil(float(maxzero)))
+    maxzero = scinotate(d(remove_pythnotation(maxzero)), 20) #last chance to clean up our target value to be nicer looking and appropriate size relative to screen width
+
+except:
+    maxzero = scinotate(d(remove_pythnotation(maxzero)), 20) #last chance to clean up our target value to be nicer looking and appropriate size relative to screen width
+
+
+
 
 if (__name__ == "__main__"): #Again, if we import code don't calculate tables
     rerun = True
@@ -712,6 +719,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
 
             num += 1
         rerun = False
+        print ("Finished for p=" + str(p) + " of " + str(flips) + "!")
         if simulated:
             rerun = input("\nRe-run? [Y/n]")
             if rerun.upper() == "N":
@@ -731,7 +739,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
 
     ##for s in stddev_list:
     ##    print (s)
-    print ("Finished for " + str(flips) + "!")
+
     #print ('\a') #beep
 
         #keys.wait(" ")
