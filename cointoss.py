@@ -160,8 +160,9 @@ else:
     high = int(trials_input2)
     # print(str(high))
     trials = [int(d(i - d((i ** 2)/dist) + 10 ** (d(i ** 2/dist).log10() * d(high).log10()/d(dist).log10()))) for i in range(1, dist+1)]
-    #trials[-1] = int(high)
+    trials[-1] = int(high)
     trials[0] = 1
+    
 
 
 trials[0] = 1
