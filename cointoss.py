@@ -45,11 +45,6 @@ dist = 32 #number distribution of for array of "people" running trials
 max_factorial = 203500 #C and possibly Python implementation of Decimal() tends to break around binomial calculations of this magnitude because of factorials
 
 
-def d_ceil(n): #Decimal version of math.ceil()
-    getcontext().rounding = ROUND_CEILING
-    p = n * 1
-    getcontext().rounding = ROUND_HALF_EVEN
-    return p
 
 
 if (__name__ == "__main__"): #Just so if the code is imported like a module it doesn't ask for input
@@ -81,6 +76,16 @@ if ('_pydecimal' not in sys.modules): #Simply, if we didn't load the pydecimal i
     from decimal import Decimal as d
     from decimal import *
 
+def d_round(n, prec): #Decimal version of round()
+    global context_value
+    getcontext().prec = prec
+    p = n * 1
+    getcontext().prec = context_value
+
+    return p
+
+
+
 # Probability of success for each experiment
 p = 0.5
 
@@ -95,8 +100,8 @@ p = d(p_str)
 print("p = " + str(p))
 
 
-maxzero = d_ceil(d(1 / p) ** d(flips)) #flips before achieving 0% (also, the probability of any given toss results)
-#maxzero = 1/d(d(1-p) ** d(flips))
+#maxzero = d_ceil(d(1 / p) ** d(flips)) 
+maxzero = d_round(1/d(d(1-p) ** d(flips)), context_value) #flips before achieving 0% (also, the probability of any given toss results)
 ##maxzero = sevenbil
 
 
@@ -223,14 +228,7 @@ def d_gamma (x: d): #Decimal verison of gamma for 0 < x < 1
 
 
 
-def d_round(n, prec): #Decimal version of round()
-    global context_value
-    getcontext().prec = prec
-    p = n * 1
-##    getcontext().prec = 28
-    getcontext().prec = context_value
 
-    return p
 
 def d_floor(n): #Decimal version of math.floor()
     getcontext().rounding = ROUND_FLOOR
@@ -267,8 +265,9 @@ def remove_zero_trail(num): #remove trailing zeros for < 1 needs rewrite for eff
         while n[c] == "0": 
             n = n[:c]
             c -= 1
-        if n[c] == '.': return n + '0'
+        if n[c] == '.': return n[:c]
         return n
+
 
 def remove_pythnotation(num): #Removes scientific notation up to 2000 digits
         
@@ -278,6 +277,8 @@ def remove_pythnotation(num): #Removes scientific notation up to 2000 digits
             exit(-1)
         b = remove_zero_trail(b) #this doesn't appear to work everytime, not sure why, yet: check again
         return b
+
+
 
 
 def scinotate(numpass: d, prec: int): #manual scientific notation for very large and very small numbers
@@ -318,6 +319,7 @@ def scinotate(numpass: d, prec: int): #manual scientific notation for very large
         a = t + 'e-' + str(len(str(10**(c-2))))
 
     return sign + a
+
 
 
 
@@ -684,6 +686,9 @@ def probability_chart():
     return
 
 
+
+if (len(str(maxzero)) < 10**30): maxzero = d(math.ceil(float(maxzero)))#last chance to clean up our target value to be nicer looking and appropriate size relative to screen width
+maxzero = scinotate(d(remove_pythnotation(maxzero)), 20) 
 
 if (__name__ == "__main__"): #Again, if we import code don't calculate tables
     rerun = True
