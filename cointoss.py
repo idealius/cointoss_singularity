@@ -14,6 +14,7 @@ import Tables
 import os
 import time
 import secrets
+#import decimal as d # this is actually just implemented programmatically down below 30 lines or so v v v
 # import curses
 
 print('Calculating High Numbers..')
@@ -96,7 +97,7 @@ elif p <= 0:
     p = .1
 elif p > 1: 
     p=.9
-p = d(p_str)
+p = d(p)
 print("p = " + str(p))
 
 
