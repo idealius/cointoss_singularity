@@ -28,4 +28,4 @@ The first thing on my mind is getting to run with pypy for faster runtimes and s
 
 ## The Point?
 
-When the population of a probability exceeds a certain amount the gaussian distribution isn't as accurate anymore because the long tails of a distribution suddenly allow extended runs of wins / losses. In the past this was fine because computers could not calculate those tails timely due to factorial equations being difficult to solve for, but now computers have advanced enough to accomodate complex factorial equations to some extent.
+When the population of a probability exceeds a certain amount the gaussian distribution isn't as semmingly accurate anymore because the long tails of a distribution suddenly allow extended runs of wins / losses. In the past this was fine because computers could not calculate those tails timely due to factorial equations being difficult to solve for, but now computers have advanced enough to accomodate complex factorial equations to some extent.
