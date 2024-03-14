@@ -12,6 +12,8 @@ The most concise explanation I can give is:
 
 ***Yet, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials). So, if we cycle through x from a logarithmic or linear series of numbers this program will show those nonzero probabilities, and their level.***
 
+Protip: Only simulate tosses when attempting to see confirm validity, it will take forever to simulate trials in other cases.
+
 ## But, how do we calculate that?
 
 A statistican would have some great ideas. I am not one, I am a math hobbyist that is just interested in this particular corner of academics, and this is my result. 
