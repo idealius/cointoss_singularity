@@ -1,6 +1,6 @@
 # Hello World
 
-This program was conceived, researched, and somewhat haphazardly programmed just before the pandemic in early 2020. Aside from adding command line options, I have not continued development on it because other repositories and the usual, but I wish to when time is available.
+This program was conceived, researched, and somewhat haphazardly programmed just before the pandemic in early 2020. Aside from adding command line options, I haven't continued development on it because other repositories and the usual, but I wish to when time is available.
 
 # What is it?
 
@@ -11,6 +11,8 @@ The most concise explanation I can give is:
 **So, if we flip 5 coins (trials), it will take 2^5 i.e. 32 total cointosses, whether we assign to multiple people, or done by one to achieve a streak of all 5 heads or all 5 tails.**
 
 ***Yet, there is still a nonzero possibilty of getting all heads/tails (or close to) when looking at 2^(trials - x) where x is the gap before we reach 2^(trials). So, if we cycle through x from a logarithmic or linear series of numbers this program will show those nonzero probabilities, and their level.***
+
+Protip: Only simulate tosses when attempting to confirm validity of the predictive algorthim, it will take forever to simulate trials in other cases.
 
 ## But, how do we calculate that?
 
@@ -41,4 +43,4 @@ The first thing on my mind is getting to run with pypy for faster runtimes and s
 
 ## The Point?
 
-When the population of a probability exceeds a certain amount the gaussian distribution isn't as accurate anymore because the long tails of a distribution suddenly allow extended runs of wins / losses. In the past this was fine because computers could not calculate those tails timely due to factorial equations being difficult to solve for, but now computers have advanced enough to accomodate complex factorial equations to some extent.
+When the population of a probability exceeds a certain amount the gaussian distribution isn't as seemingly accurate anymore because the long tails of a distribution suddenly allow extended runs of wins / losses. In the past this was fine because computers couldn't calculate those tails timely due to factorial equations being difficult to solve for, but now computers have advanced enough to accomodate complex factorial equations to some extent.
