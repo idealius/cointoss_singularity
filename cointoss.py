@@ -93,11 +93,11 @@ p = 0.5
 p_str = input("\nProbability [p=.5]")
 if p_str == "":
     p = .5
-elif p <= 0:
+elif float(p_str) <= 0:
     p = .1
-elif p > 1: 
+elif float(p_str) > 1: 
     p=.9
-p = d(p)
+p = d(p_str)
 print("p = " + str(p))
 
 
@@ -222,11 +222,11 @@ _a =    ( 1.00000000000000000000, 0.57721566490153286061, -0.6558780715202538810
 def d_gamma (x: d): #Decimal verison of gamma for 0 < x < 1
    x +=1 # Shouldn't really do this here for consistency with mathematics, but I just think it's cleaner
    one = d(1.0)
-   y  = d(x) - one;
-   sm = _a[-1];
+   y  = d(x) - one
+   sm = _a[-1]
    for an in _a[-2::-1]:
-      sm = d(d(sm) * y) + d(an);
-   return d(one / sm);
+      sm = d(d(sm) * y) + d(an)
+   return d(one / sm)
 
 
 
