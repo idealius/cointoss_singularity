@@ -48,10 +48,18 @@ max_factorial = 203500 #C and possibly Python implementation of Decimal() tends 
 
 
 
-if (__name__ == "__main__"): #Just so if the code is imported like a module it doesn't ask for input
+if __name__ == "__main__": #Just so if the code is imported like a module it doesn't ask for input
     while flips == None:
-        flips = int(input("\nEnter number of coin flips (50%): "))
-        if (flips > max_factorial):
+
+        try:
+            flips = int(input("\nEnter number of coin flips (50%): "))
+
+        except:
+            flips = 25
+            print("Number of flips set to 25")
+    
+
+        if flips > max_factorial:
 
             print("\nIt is highly recommended you choose a number below "+str(max_factorial)+" for calculation speeds ")
             i = input("Continue with "+str(flips)+"? Y,n - Default(Y):")
@@ -66,8 +74,7 @@ if (__name__ == "__main__"): #Just so if the code is imported like a module it d
                 from _pydecimal import Decimal as d
                 from _pydecimal import *
                 Context(Emax=context_value)
-
-        elif (flips != None):
+        elif flips != None:
             break
     print ('\n')
 else:
@@ -88,10 +95,13 @@ def d_round(n, prec): #Decimal version of round()
 
 
 # Probability of success for each experiment
-p = 0.5
+
+# p = 0.5
 
 p_str = input("\nProbability [p=.5]")
+
 if p_str == "":
+    p_str = "0.5"
     p = .5
 elif float(p_str) <= 0:
     p = .1
