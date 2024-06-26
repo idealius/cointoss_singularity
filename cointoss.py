@@ -102,13 +102,12 @@ p_str = input("\nProbability [p=.5]")
 
 if p_str == "":
     p_str = "0.5"
-    p = .5
 elif float(p_str) <= 0:
-    p = .1
+    p_str = ".01"
 elif float(p_str) > 1: 
-    p=.9
+    p_str = ".99"
 p = d(p_str)
-print("p = " + str(p))
+print("p = " + p_str)
 
 
 #maxzero = d_ceil(d(1 / p) ** d(flips)) 
@@ -458,11 +457,11 @@ def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > th
         #if (maxzero == numtrials): return "0"
    
         
-        if(calc_mode == 'default'): #default
+        if(calc_mode == 'default'): #default #This was implemented and never used, this whole if statement could just be replaced with low_value =
             low_value = binomial_dist(numtrials, numtosses, i, prob)
         elif (calc_mode == 'both'):
             low_value = binomial_dist(numtrials, numtosses, i, prob)
-            low_stirling = stirling_binom(numtrials, numtosses, i, prob)
+            low_stirling = stirling_binom(numtrials, numtosses, i, prob) 
         else:
             low_value = stirling_binom(numtrials, numtosses, i, prob)
 
@@ -724,7 +723,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
                 cs_flips_result[num] = str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4)) #This is relevant after closing the probability chart
                 #flips_array2[num] = str(percent(flips_result_sim, flips))+', '+ str(flips_result_sim) + ', ' + str(d_round(binomial_dist(row, flips, flips_result_sim, p), 4))
                 # flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+str(percent(flips_result_sim, flips))+')'
-                flip_ratio = round(flips_result_sim / flips * 100,2)
+                flip_ratio = round(flips_result_sim / flips * 100, 2)
                 flip_ratio = 100 - flip_ratio if flip_ratio > 50 else flip_ratio 
                 flips_array2[num] = str(flips_result_sim) +'/'+str(flips-flips_result_sim)+' ('+ str(flip_ratio) + '%)'
                 print_table()
@@ -732,12 +731,46 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
             num += 1
         rerun = False
         print ("Finished for p=" + str(p) + " of " + str(flips) + "!")
-        if simulated:
-            rerun = input("\nRe-run? [Y/n]")
-            if rerun.upper() == "N":
-                rerun = False
-            else: 
-                rerun = True #for commenting convenienceupper(input("\nRe-run?[y/N]"))
+
+        laymans = input("\nTranslate three random row results in english? [y/N]")
+
+        if laymans.upper() != "N":
+
+            # random_choices = random.sample(flips_array, 3)
+
+            # print(random_choices)
+            num_trials = len(flips_array)
+            random_indices = random.sample(range(num_trials), 3)
+
+            nums = list(map(str, trials))
+    
+        #Format numbers for screen width
+        
+            termcolumns, termrows = os.get_terminal_size()
+            for i in range(0, len(nums)):
+
+                if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -60:
+                    nums[i] = scinotate(d(nums[i]), 2)
+
+            # Process each chosen index
+            for index in random_indices:
+                choice = flips_array[index]
+                parts = choice.split(' ')
+                num_tails, num_heads = map(float, parts[0].split('/'))
+                
+                num_tails = int(num_tails)
+                num_heads = int(num_heads)
+                total_flips = num_tails + num_heads
+
+                print(f"\n Out of {nums[index]} rounds of people tossing coins {total_flips} times: The lowest possible number of tails I could achieve is {num_tails} for at least one round, with {num_heads} heads. "
+                    f"Or we could say the same in reverse, that I could achieve only {num_tails} heads out of {total_flips} with all the rest ({num_heads}) being tails.")
+            
+            if simulated:
+                rerun = input("\nRe-run? [Y/n]")
+                if rerun.upper() == "N":
+                        rerun = False
+                else: 
+                        rerun = True #for commenting convenienceupper(input("\nRe-run?[y/N]"))
 
 
 
