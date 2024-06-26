@@ -98,7 +98,9 @@ def d_round(n, prec): #Decimal version of round()
 
 # p = 0.5
 
+print("(Point of reference: A p of .1 is a coin which lands tails 90% of the time, thereby resulting in the program running much faster.)")
 p_str = input("\nProbability [p=.5]")
+
 
 if p_str == "":
     p_str = "0.5"
