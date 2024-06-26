@@ -352,8 +352,8 @@ def print_table(): #Print a table of lists with labels
     clear()
 
     print (Tables.Table(
-        Column('People/Trials', nums),
-        Column('TA/HE Flip Results ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
+        Column('Rounds', nums),
+        Column('Results from ' + str(flips)  + ' flips', speeds, align=Column.LEFT),
         Column('Simulated', speeds2, align=Column.LEFT)))
       
     print (str(maxzero) + " trials until 0% at p=" + str(p))
@@ -485,6 +485,7 @@ def calc_binom(numtrials, numtosses, prob): #Calculate lowest probabilities > th
     #end loop
 
     return scinotate(d_round(identity_dist, 2), 4) + " p of " + str(prob*100) + "%" #We didn't find it so just send the highest probability of the binomial
+    
 
 
 def sim_binom(numtrials, numtosses, prob, suppress_table):
@@ -739,9 +740,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
             # random_choices = random.sample(flips_array, 3)
 
             # print(random_choices)
-            num_trials = len(flips_array)
-            random_indices = random.sample(range(num_trials), 3)
-
+            
             nums = list(map(str, trials))
     
         #Format numbers for screen width
@@ -751,6 +750,12 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
 
                 if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -60:
                     nums[i] = scinotate(d(nums[i]), 2)
+
+            num_trials = len(flips_array)
+            while True:
+                random_indices = random.sample(range(num_trials), 3)
+                if 0 not in random_indices:
+                    break
 
             # Process each chosen index
             for index in random_indices:
