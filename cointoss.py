@@ -98,7 +98,8 @@ def d_round(n, prec): #Decimal version of round()
 
 # p = 0.5
 
-print("(Point of reference: A p of .1 is a coin which lands tails 90% of the time, thereby resulting in the program running much faster.)")
+print("(Point of reference: A p of .1 is a coin which lands tails 90% of the time. The algorithm checks for tails so this is very fast.")
+print("Checking for p = .9 runs very slow and it would be better to check for .1 and swap heads for tails.)")
 p_str = input("\nProbability [p=.5]")
 
 
@@ -735,42 +736,44 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
         rerun = False
         print ("Finished for p=" + str(p) + " of " + str(flips) + "!")
 
-        laymans = input("\nTranslate three random row results in english? [y/N]")
 
-        if laymans.upper() != "N":
+        if len(trials) > 3:
+            laymans = input("\nTranslate three random row results in english? [y/N]")
 
-            # random_choices = random.sample(flips_array, 3)
+            if laymans.upper() != "N":
 
-            # print(random_choices)
-            
-            nums = list(map(str, trials))
-    
-        #Format numbers for screen width
-        
-            termcolumns, termrows = os.get_terminal_size()
-            for i in range(0, len(nums)):
+                # random_choices = random.sample(flips_array, 3)
 
-                if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -60:
-                    nums[i] = scinotate(d(nums[i]), 2)
-
-            num_trials = len(flips_array)
-            while True:
-                random_indices = random.sample(range(num_trials), 3)
-                if 0 not in random_indices:
-                    break
-
-            # Process each chosen index
-            for index in random_indices:
-                choice = flips_array[index]
-                parts = choice.split(' ')
-                num_tails, num_heads = map(float, parts[0].split('/'))
+                # print(random_choices)
                 
-                num_tails = int(num_tails)
-                num_heads = int(num_heads)
-                total_flips = num_tails + num_heads
+                nums = list(map(str, trials))
+        
+            #Format numbers for screen width
+            
+                termcolumns, termrows = os.get_terminal_size()
+                for i in range(0, len(nums)):
 
-                print(f"\n Out of {nums[index]} rounds of people tossing coins {total_flips} times: The lowest possible number of tails I could achieve is {num_tails} for at least one round, with {num_heads} heads. "
-                    f"Or we could say the same in reverse, that I could achieve only {num_tails} heads out of {total_flips} with all the rest ({num_heads}) being tails.")
+                    if math.floor(d(nums[i]).log10()/d(10).log10()) > int(termcolumns) - len(str(flips)) -60:
+                        nums[i] = scinotate(d(nums[i]), 2)
+
+                num_trials = len(flips_array)
+                while True:
+                    random_indices = random.sample(range(num_trials), 3)
+                    if 0 not in random_indices:
+                        break
+
+                # Process each chosen index
+                for index in random_indices:
+                    choice = flips_array[index]
+                    parts = choice.split(' ')
+                    num_tails, num_heads = map(float, parts[0].split('/'))
+                    
+                    num_tails = int(num_tails)
+                    num_heads = int(num_heads)
+                    total_flips = num_tails + num_heads
+
+                    print(f"\n Out of {nums[index]} rounds of people tossing coins {total_flips} times: The lowest possible number of tails I could achieve is {num_tails} for at least one round, with {num_heads} heads. "
+                        f"Or we could say the same in reverse, that I could achieve only {num_tails} heads out of {total_flips} with all the rest ({num_heads}) being tails.")
             
             if simulated:
                 rerun = input("\nRe-run? [Y/n]")
