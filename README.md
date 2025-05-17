@@ -24,19 +24,6 @@ If you have a roomful of people performing a cointoss, what are the expected bre
 
 If you'd like to understand what algorithm underlies the code, and why I chose it, please message me and we can chat, but it's in fact very basic. The accuracy is not 100%, but it seems to be scalable so I think it's most likely on the correct track.
 
-# Example
-
-Sorry for the blinking - didn't really want to get into all the nuance of terminal cursor position on a multi-platform level. It tends to not be an issue when running it as fast calculations go fast, and longer calculations has less blinking.
-
-This first example is of 10,000 coin tosses. It can surprisingly quickly predict what multiplier (People/Trials) needs to be performed to get at least one instance of, what most people would consider, a low probability result, and the next column HE/TA shows what that result will be. Consider the second column could have been displayed in reverse, so if you take 10,000 in this case and your result is 4400 heads / 5600 tails, it is true that this is also mirrored the same as getting at least one 4400 heads / 5600 result.
-
-![10000 coinflips](large_number.gif)
-
-This next example is the same, but now we choose a lower number (in this case 20) because we're simulating them, and it takes a long time, but allows one to get some sense of the first example's accuracy as well as understand that real world results will vary.
-
-
-![20 predicted and simulated coinflips](simulated.gif)
-
 ## Improvements?
 
 The first thing on my mind is getting to run with pypy for faster runtimes and simulations. But, we could work on QRNG sources. Right now it is set to a RNG that is for security encryption, with the idea that it could be more "random." (And, it does appear to be that way, from my experimentation.)

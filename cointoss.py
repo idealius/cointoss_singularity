@@ -779,7 +779,7 @@ if (__name__ == "__main__"): #Again, if we import code don't calculate tables
                     num_heads = int(num_heads)
                     total_flips = num_tails + num_heads
 
-                    print(f"\n Out of {nums[index]} rounds of people tossing coins {total_flips} times: The lowest possible number of tails I could achieve is {num_tails} for at least one round, with {num_heads} heads. "
+                    print(f"\n Out of {nums[index]} rounds of people tossing coins {total_flips} times: The lowest possible number of tails I could achieve is {num_tails} across rounds, with {num_heads} heads. "
                         f"Or we could say the same in reverse, that I could achieve only {num_tails} heads out of {total_flips} with all the rest ({num_heads}) being tails.")
             
             if simulated:
