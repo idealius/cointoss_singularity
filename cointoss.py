@@ -84,14 +84,25 @@ if ('_pydecimal' not in sys.modules): #Simply, if we didn't load the pydecimal i
     from decimal import Decimal as d
     from decimal import *
 
-def d_round(n, prec): #Decimal version of round()
-    global context_value
-    getcontext().prec = prec
-    p = n * 1
-    getcontext().prec = context_value
+def remove_zero_trail(num): #remove trailing zeros for < 1 needs rewrite for efficiency
+        #if (d(num) >= 1): return num #not sure why this is even here
+        n = str(num)
+        c = len(n)-1
+        while n[c] == "0": 
+            n = n[:c]
+            c -= 1
+        if n[c] == '.': return n[:c]
+        return d(n)
 
-    return p
-
+def d_round(n, places):
+    """Rounds a number using Decimal quantize. Safe against invalid operations."""
+    n = d(n)
+    try:
+        exp = d('1e{}'.format(-places))  # places=2 → '1e-2' → 0.01
+        return remove_zero_trail(n.quantize(exp, rounding=ROUND_HALF_UP))
+    except InvalidOperation:
+        # fallback: return number as-is, or force string formatting
+        return remove_zero_trail(n)
 
 
 # Probability of success for each experiment
@@ -114,7 +125,10 @@ print("p = " + p_str)
 
 
 #maxzero = d_ceil(d(1 / p) ** d(flips)) 
-maxzero = d_round(1/d(d(1-p) ** d(flips)), 1) #flips before achieving 0% (also, the probability of any given toss results)
+#maxzero = d_round(1/d(d(1-p) ** d(flips)), 1) #flips before achieving 0% (also, the probability of any given toss results)
+maxzero = d(1) / ((d(1) - p) ** flips)
+maxzero = d_round(maxzero, 0)
+#1/(.5 ** 20)
 ##maxzero = sevenbil
 
 
@@ -272,15 +286,7 @@ def d_factorial(n: d):
     return n
 
 
-def remove_zero_trail(num): #remove trailing zeros for < 1 needs rewrite for efficiency
-        #if (d(num) >= 1): return num #not sure why this is even here
-        n = num
-        c = len(n)-1
-        while n[c] == "0": 
-            n = n[:c]
-            c -= 1
-        if n[c] == '.': return n[:c]
-        return n
+
 
 
 def remove_pythnotation(num): #Removes scientific notation up to 2000 digits
@@ -297,6 +303,7 @@ def remove_pythnotation(num): #Removes scientific notation up to 2000 digits
 
 def scinotate(numpass: d, prec: int): #manual scientific notation for very large and very small numbers
     sign = '' 
+    numpass = d(numpass)
     if (numpass < 0): ##value is negative so store it and add it later after string manipulation
         sign = '-'
         n = str(numpass)
